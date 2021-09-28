@@ -1,0 +1,51 @@
+<!-- <h1>Soy el ASIDE</h1> -->
+
+<div class="menu-container">
+  <aside class="menu-principal" #menu>
+    <div class="menu-header">
+      <div>
+        <span>{{asideModel.asideTitulo | uppercase}}</span>
+        <i  *ngIf="!asideEstado.flotar"
+            (click)="miniAside()" 
+            class="las la-compress"
+            title="minimizar">
+        </i>
+        <i  *ngIf="asideEstado.flotar"
+            (click)="close()" 
+            class="las la-times"
+            title="cerrar">
+        </i>
+      </div>
+      <hr class="horizontal dark mt-0" />
+    </div>
+
+    <div class="menu-content">
+        <div 
+            class="menu-article" 
+            *ngFor="let seccion of asideModel.asideSeccion">
+            
+            <h5 
+                class="menu-article-titulo">
+                <i class="{{seccion.icon}}"></i>{{ seccion.titulo | uppercase}}
+            </h5>
+
+            <ul class="items-menu" *ngFor="let item of seccion.items">
+                <li class="item-menu" routerLinkActive="item-menu-active">
+                    <a [routerLink]="item.href"><i class="{{item.icon}}"></i>{{item.texto |titlecase}}</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="menu-footer">
+        <hr class="horizontal dark mt-0" />
+        <div>
+            {{asideModel.asideFooter | titlecase}}
+        </div>
+        <div *ngIf="asideModel.asideEstado">
+            <span>aside</span>
+            <pre>{{asideEstado | json}}</pre>
+        </div>
+    </div>
+  </aside>
+</div>

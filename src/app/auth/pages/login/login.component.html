@@ -1,1 +1,94 @@
-<p>login works!</p>
+<!-- <p>login works!</p> -->
+<div class="main">
+  <div class="container">
+    <div class="middle">
+      <div id="login">
+        <form autocomplete="off" [formGroup]="miFormulario" (submit)="signin()">
+          <fieldset class="clearfix">
+            <p>
+              <span class="fa fa-user"></span
+              ><input
+                type="text"
+                Placeholder="Username"
+                formControlName="username"
+              />
+            </p>
+            <!-- JS because of IE support; better: placeholder="Username" -->
+            <p>
+              <span class="fa fa-lock"></span
+              ><input
+                type="password"
+                Placeholder="Password"
+                formControlName="password"
+              />
+            </p>
+            <!-- JS because of IE support; better: placeholder="Password" -->
+
+            <div>
+              <span style="width: 48%; text-align: left; display: inline-block"
+                ><a class="small-text" href="#">Forgot password?</a></span
+              >
+              <span style="width: 50%; text-align: right; display: inline-block"
+                >
+                <input 
+                  type="submit" 
+                  value="Sign In"
+                  [disabled]="miFormulario.invalid"/>
+              </span>
+            </div>
+          </fieldset>
+
+          <div class="clearfix"></div>
+        </form>
+
+        <div class="clearfix"></div>
+      </div>
+      <!-- end login -->
+      <div class="logo">
+        <img
+          src="http://assets.stickpng.com/images/5954bb45deaf2c03413be353.png"
+          alt=""
+        />
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <!--  Mensajes de errores -->
+    <div class="row">
+      <div class="col">
+        <ul class="group-list">
+          <li class="form-text text-white group-list-items" *ngIf="campoNoEsValido('username')"
+          >El username debe contener mínimo 5 caracteres
+        </li>
+        <li class="form-text text-white group-list-items" *ngIf="campoNoEsValido('password')"
+          >El password debe contener como mínimo 8 caracteres.
+        </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bloque de desarrollo para ver la validacion del formulario -->
+    <div class="row d-none">
+      <div class="col">
+        
+        <span>Valid</span>
+        <pre>{{ miFormulario.valid | json }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ miFormulario.pristine | json }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ miFormulario.touched | json }}</pre>
+
+        <span>Value</span>
+        <pre>{{ miFormulario.value | json }}</pre>
+
+        <span>Errors</span>
+        <pre>{{ miFormulario.controls.username.errors | json }}</pre>
+        <pre>{{ miFormulario.controls.password.errors | json }}</pre>
+
+      </div>
+    </div>
+  </div>
+</div>

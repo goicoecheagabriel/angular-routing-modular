@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    /* --white-color: white;
+    --mainA-bg-color: #4b9ef0;
+    --mainB-bg-color: #69B4FF;
+    --mainC-bg-color: #2263A3;
+    --compA-bg-color: #A36D12;
+    --compB-bg-color: #F0B24A; */
+    --color-1: #484848;
+    --color-2: #9b9b9b;
+    --color-3: #f04c5f08;
+    --color-4: transparent;
+    --color-5: black;
+    --color-6: white;
+
+    --color-A: #F87041;
+    --color-B: #D94A38;
+    --color-C: #F04A5E;
+    --color-D: #D9389B;
+    --color-E: #ED41F8;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Roboto', sans-serif;
+}
