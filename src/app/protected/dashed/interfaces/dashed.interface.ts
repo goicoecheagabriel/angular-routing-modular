@@ -2,6 +2,7 @@ export interface AsideEstado {
  flotar: boolean;
  open: boolean;
  minimizado: boolean; 
+ aside?: any
 }
 
 export interface AsideModel {

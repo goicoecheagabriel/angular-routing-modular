@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { ElementRef, Injectable, ViewChild } from '@angular/core';
-import { from } from 'rxjs';
+import { ElementRef, Injectable } from '@angular/core';
+
 import { AsideEstado } from './interfaces/dashed.interface';
 
 @Injectable({
@@ -8,12 +8,12 @@ import { AsideEstado } from './interfaces/dashed.interface';
 })
 export class DashedService {
 
-  @ViewChild('menu') menu!: ElementRef;
+  // @ViewChild('menu') menu!: ElementRef;
 
   private _aside: AsideEstado = {
     flotar: true,
     open: true,
-    minimizado: false,
+    minimizado: false
   }
 
   constructor( 
@@ -21,7 +21,7 @@ export class DashedService {
    ) { }
 
   public setAside ( props: AsideEstado ) {
-    this._aside = props;
+    this._aside = {...props};
   }
 
   public setFlotarAside ( flotar: boolean ) {
@@ -42,33 +42,41 @@ export class DashedService {
 
   // Dependiendo del breakpoint ajusta el css para mostrar el aside inicialmente
   public verificarBreakPointAside( menu: ElementRef ) {
+    this._aside.aside = menu.nativeElement;
+    console.log("pasamos por aca", menu)
+    console.log("leemos el _aside", this._aside)
     this._bpo
       .observe(['(min-width: 768px)'])
       .subscribe( ( state: BreakpointState ) => {
         console.log(state)
+        let nuevoEstado = {};
+
         if ( state.matches ) {
             menu.nativeElement.style = `
             transform: translateX(0);
             min-width: 42px;
             position: relative;
             `
-            this._aside = {
+      
+            nuevoEstado = {
               flotar: false,
               open: true,
               minimizado: false,
             }
-
-        } else {
+            this._aside = {...this._aside, ...nuevoEstado}
+            
+          } else {
             menu.nativeElement.style = `
             transform: translateX(0);
             min-width: 200px;
             position: absolute
             `  
-            this._aside = {
+            nuevoEstado = {
               flotar: true,
               open: true,
               minimizado: false,
             }
+            this._aside = {...this._aside,...nuevoEstado}
         }
       } )
   }
@@ -76,7 +84,18 @@ export class DashedService {
   public asideClose (menu: ElementRef) {
     menu.nativeElement.style = `
       transform: translateX(-120%)
-    `
+    `;
+    this.setOpenAside(false);
+  }
+
+  public asideOpen (btnOpen: ElementRef){
+    if( !this._aside.aside ){
+      console.warn("No se puede abrir el Aside", this._aside)
+      return;
+    } 
+    this._aside.aside.style = "transform: translateX(0)";
+    this.setOpenAside(true);
+    console.log("Abriendo desde Service", btnOpen, this._aside)
   }
 
   public asideToggleMinimize(valor?: boolean):boolean {
