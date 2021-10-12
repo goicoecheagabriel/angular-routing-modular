@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  FormGroupDirective,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -44,14 +43,11 @@ export class LoginComponent {
     this.loginService.signin( user ).subscribe(
       ( resp ) => {
         if( resp.ok ) {
-          console.log('Recibimos un Token', resp.token);
-          console.log("Recibimos un objeto", this.user)
           this.miFormulario.reset();
           this.router.navigate(['./dashboard/app'])
         }
       },
       ({ error }) => {
-        console.log('Recibimos un error', error);
         this.miFormulario.reset();
         this.router.navigate(['./auth/login/hola'])
       }

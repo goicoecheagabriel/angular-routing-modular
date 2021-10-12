@@ -16,24 +16,29 @@ export class LoginService {
   private _user: any | undefined;
   
   public get user(): any {
-    return this._user
+    return {...this._user}
   };
 
   constructor( private http: HttpClient ) { }
 
 
-  public verificaAutenticacion ( user: User ): Observable<boolean> {
+  public verificaAutenticacion():Observable<boolean> {
     
     if ( ! localStorage.getItem('token') ){
+      console.log('El token no existe')
       return of(false);
     }
-
-    return this.http.post<Token>( `${ this._baseUrl }/usuarios/signin`, user )
+    
+    console.log('El token SI existe')
+    const oldToken = `Bearer ${localStorage.getItem('token')}`;
+    return this.http.get<Token>( `${ this._baseUrl }/usuarios/renewToken`, {headers: { 'Authorization': oldToken }})
       .pipe(
         map( token => {
           this._auth = token;
           this._user = jwt_decode( token.token );
-          return true;
+          localStorage.setItem('token', token.token);
+          console.log('map', token)
+          return true
         } )
       )
   }
@@ -49,11 +54,17 @@ export class LoginService {
             ...this._user,
             username: user.userName,
             avatar: null
-          }
+          };
         }),
         tap( auth => localStorage.setItem('token', auth.token) )
       );
 
+  }
+
+  public signout() {
+    this._user = undefined;
+    this._auth = undefined;
+    localStorage.removeItem('token');
   }
 
 }

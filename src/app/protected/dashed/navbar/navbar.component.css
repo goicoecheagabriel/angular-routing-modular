@@ -12,3 +12,25 @@
     top: 0;
     padding: 0.5rem 0.2rem;
 }
+
+.avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+
+}
+
+.avatar .logout{
+    font-size: 1.6rem;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: .5rem;
+    transition: background 300ms ease-in-out;
+}
+
+.avatar .logout:hover{
+    background-color: var(--color-C);
+    color: var(--color-6);
+}
