@@ -43,12 +43,12 @@ export class DashedService {
   // Dependiendo del breakpoint ajusta el css para mostrar el aside inicialmente
   public verificarBreakPointAside( menu: ElementRef ) {
     this._aside.aside = menu.nativeElement;
-    console.log("pasamos por aca", menu)
-    console.log("leemos el _aside", this._aside)
+    // console.log("pasamos por aca", menu)
+    // console.log("leemos el _aside", this._aside)
     this._bpo
       .observe(['(min-width: 768px)'])
       .subscribe( ( state: BreakpointState ) => {
-        console.log(state)
+        // console.log(state)
         let nuevoEstado = {};
 
         if ( state.matches ) {

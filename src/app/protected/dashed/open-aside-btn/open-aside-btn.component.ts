@@ -17,7 +17,7 @@ export class OpenAsideBtnComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.warn("Estamos cargando el btn")
+    // console.warn("Estamos cargando el btn")
   }
 
   ngDoCheck(): void {

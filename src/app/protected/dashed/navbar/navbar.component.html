@@ -10,7 +10,10 @@
           </select>
     </div>
     <div class="avatar">
-        <span>Perfil</span><span>Foto</span>
+        <span>{{user.tipo}}</span>
+        <span title="{{ user.email }} | {{ user.tipo }}">
+            <img src="../../../../assets/avatar/admin.jpg" alt="avatar">
+        </span>
         <span
             (click)="signout()"
             class="logout">

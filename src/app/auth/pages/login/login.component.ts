@@ -44,7 +44,7 @@ export class LoginComponent {
       ( resp ) => {
         if( resp.ok ) {
           this.miFormulario.reset();
-          this.router.navigate(['./dashboard/app'])
+          this.router.navigate(['./dashboard/main'])
         }
       },
       ({ error }) => {
