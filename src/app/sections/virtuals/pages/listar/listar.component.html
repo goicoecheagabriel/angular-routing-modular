@@ -1,0 +1,58 @@
+<!-- GET BOOTSTRAP -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+  
+<app-titulo titulo="Listar Modelos" *ngIf="!error"></app-titulo>
+
+<div
+    *ngIf="modelos.length > 0"
+    class="container">
+    <div 
+        *ngFor="let modelo of modelos"
+        class="virtual-card">
+        <div class="header">
+            <div class="avatar">
+                <i class="la-2x la-vr-cardboard las"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="nombre">
+                {{ modelo.nombre }}
+            </div>
+            <div class="descripcion">
+                {{ modelo.descripcion }}
+            </div>
+        </div>
+        <div class="footer">
+            <!-- eliminar -->
+            <button 
+                (click)="eliminar(modelo)"
+                class="btn-eliminar">
+                <i class="la-2x las la-trash-alt"></i>
+            </button>
+
+            <!-- editar -->
+            <button 
+                (click)="editar(modelo)"
+                class="btn-editar">
+                <i class="la-2x las la-edit"></i>
+                
+            </button>
+
+            <!-- mapa -->
+            <button
+                class="btn-mapa"
+                (click)="mapa(modelo)">
+                <i class="la-2x las la-map-marker-alt"></i>
+                
+            </button>
+        </div>
+    </div>
+
+    
+</div>
+
+<div *ngIf="error" class="container">
+    <span class="error">{{ error }}</span>
+</div>
+
+<app-loading *ngIf="loading && !error"></app-loading>

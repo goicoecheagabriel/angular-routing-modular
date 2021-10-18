@@ -13,6 +13,11 @@
     --color-5: black;
     --color-6: white;
 
+    --color-warning-bg: var(--color-A);
+    --color-warning-text: var(--color-6);
+    --color-cancel-bg: var(--color-1);
+    --color-cancel-text: var(--color-6);
+
     --color-A: #F87041;
     --color-B: #D94A38;
     --color-C: #F04A5E;
@@ -29,3 +34,38 @@
 body, html {
     font-family: 'Roboto', sans-serif;
 }
+
+.horizontal-hr{
+    background-image: linear-gradient(90deg,transparent,var(--color-1),transparent);
+    background-color: transparent;
+    height: 1px;
+    margin: 0.2rem 0;
+    color: inherit;
+    border: 0;
+    opacity: .25;
+}
+
+.title-h2{
+    padding: .7rem 1rem;
+    color: var(--color-1);
+    font-weight:300;
+}
+
+
+/* ESTILOS PARA PERSONALIZADOS PARA sweetalert2 */
+.swal-btn-eliminar{
+    background-color: var(--color-warning-bg)!important;
+    color: var(--color-warning-text)!important;
+}
+.swal-btn-cancelar{
+    background-color: var(--color-cancel-bg)!important;
+    color: var(--color-cancel-text)!important;
+}
+.swal-icon-cancelar{
+    border-color: var(--color-warning-bg)!important;
+}
+
+.swal-icon-cancelar > span span{
+    background-color: var(--color-warning-bg)!important;
+}
+

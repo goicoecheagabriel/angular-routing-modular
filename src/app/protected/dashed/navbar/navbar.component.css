@@ -1,14 +1,15 @@
 .navbar {
+    align-items: center;
+    background-color: var(--color-B);
+    color: var(--color-6);
     display: grid;
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 1fr;
-    align-items: center;
 
-    background-color: rgba(255, 255, 255, 0.7);
     /* width: 100%; */
     min-height: 64px;
     /* position: fixed; */
-    /* position: sticky; */
+    position: sticky;
     top: 0;
     padding: 0.5rem 0.2rem;
 }
@@ -21,7 +22,7 @@
 
 }
 
-.avatar .logout{
+.avatar .avatar-logout{
     font-size: 1.6rem;
     padding: 8px;
     cursor: pointer;
@@ -35,12 +36,16 @@
     color: var(--color-6);
 }
 
-.avatar img {
+.avatar .avatar-img{
+    display: flex;
+}
+
+.avatar .avatar-img img {
     width: 40px;
     height: 40px;
-    background-color: var(--color-2);
-    padding: 2px;
+    padding: 1px;
     border-radius: 50%;
     margin-left: 8px;
     cursor: pointer;
+    border: 1px dashed var(--color-6);
 }

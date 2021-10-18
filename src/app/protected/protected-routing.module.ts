@@ -18,6 +18,10 @@ const routes: Routes = [
           component: MainComponent,
         },
         {
+          path: 'virtuals',
+          loadChildren: () => import('../sections/virtuals/virtuals.module').then( m => m.VirtualsModule )
+        },
+        {
           path: '**',
           redirectTo: ''
         }

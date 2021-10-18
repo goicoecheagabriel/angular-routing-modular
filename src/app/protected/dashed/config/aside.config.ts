@@ -41,5 +41,26 @@ export const asideConfig: AsideModel = {
         href: "./ventas",
         icon: "las la-chart-line"
       }]
+    },
+    {
+      titulo: 'Virtuals',
+      icon: 'las la-vr-cardboard',
+      items: [
+        {
+          texto:"listar",
+          href: "./virtuals/list",
+          icon: "las la-list"
+        },
+        {
+          texto:"nuevo",
+          href: "./virtuals/new",
+          icon: "las la-plus"
+        },
+        {
+          texto:"mapa",
+          href: "./virtuals/maps",
+          icon: "las la-map-marker"
+        }
+      ]
     }]
   }

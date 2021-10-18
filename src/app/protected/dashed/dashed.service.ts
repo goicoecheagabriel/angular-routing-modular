@@ -41,8 +41,8 @@ export class DashedService {
   }
 
   // Dependiendo del breakpoint ajusta el css para mostrar el aside inicialmente
-  public verificarBreakPointAside( menu: ElementRef ) {
-    this._aside.aside = menu.nativeElement;
+  public verificarBreakPointAside( aside: ElementRef ) {
+    this._aside.aside = aside.nativeElement;
     // console.log("pasamos por aca", menu)
     // console.log("leemos el _aside", this._aside)
     this._bpo
@@ -52,10 +52,11 @@ export class DashedService {
         let nuevoEstado = {};
 
         if ( state.matches ) {
-            menu.nativeElement.style = `
+            aside.nativeElement.style = `
             transform: translateX(0);
-            min-width: 42px;
-            position: relative;
+            `
+            aside.nativeElement.parentNode.style = `
+              width: ${aside.nativeElement.clientWidth + 'px'}
             `
       
             nuevoEstado = {
@@ -66,11 +67,14 @@ export class DashedService {
             this._aside = {...this._aside, ...nuevoEstado}
             
           } else {
-            menu.nativeElement.style = `
+            aside.nativeElement.style = `
             transform: translateX(0);
             min-width: 200px;
-            position: absolute
-            `  
+            `
+
+            aside.nativeElement.parentNode.style = `
+              width: auto;
+            `
             nuevoEstado = {
               flotar: true,
               open: true,

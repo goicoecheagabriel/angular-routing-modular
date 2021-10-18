@@ -1,7 +1,7 @@
 .open-aside {
     margin: .2rem;
     cursor: pointer;
-    color: #f04a5e;
+    color: var(--color-6);
     font-size: 1.6rem;
     margin-right: .5rem;
 }

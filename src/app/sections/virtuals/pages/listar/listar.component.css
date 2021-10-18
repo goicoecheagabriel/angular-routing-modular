@@ -1,0 +1,115 @@
+.container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem,1fr));
+    gap: 1rem;
+    grid-auto-rows: auto;
+    width: 100%;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+.container .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1 / -1;
+    padding-top: 4rem;
+}
+
+.virtual-card{
+    /* box-shadow: 0px 3px 6px rgb(0 0 0 / 16%), 0px 3px 6px rgb(0 0 0 / 23%); */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    width: 100%;
+    border-radius:3px;
+    padding: .5rem;
+    /* margin: 1rem 0; */
+    /* Sombra normal */
+    box-shadow: 1px 1px 2px #c2c2c2, 0 0 8px #d8d8d8;
+}
+
+.virtual-card .header {
+    /* background-color: rgb(0 0 0 / 1%); */
+    padding: .4rem 0;
+}
+
+.virtual-card .header .avatar {
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--color-3);
+    color: var(--color-2);
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    margin: 0 auto;
+    width: 50px;
+    border: 1px dashed var(--color-A);
+}
+
+.virtual-card .content{
+    padding:0 1rem;
+}
+
+.virtual-card .content .nombre {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0;
+    color: var(--color-2);
+    font-weight: 800;
+}
+
+.virtual-card .content .descripcion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+    color: var(--color-2);
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.1rem;
+    font-size: 0.8rem;
+}
+
+.virtual-card .footer {
+    display:flex;
+    align-items:center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    padding-bottom: 0.2rem;
+}
+
+.virtual-card .footer button {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    padding: .2rem .3rem;
+    margin-left: 0.2rem;
+    font-size: .7rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: .8;
+    transition: opacity 300ms;
+}
+
+.virtual-card .footer button:hover {
+    opacity: 1;
+}
+
+.virtual-card .footer .btn-editar,
+.virtual-card .footer .btn-mapa{
+    padding: .2rem .8rem;
+
+}
+
+.virtual-card .footer i {
+    font-size: 1rem;
+
+}
+
+.btn-eliminar{
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning-text);
+}
