@@ -1,0 +1,25 @@
+.container {
+    background-color: rebeccapurple;
+    padding: 0.2rem 1rem;
+}
+
+.form-group{
+    background-color: white;
+    
+}
+
+.form-campo.input{
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+}
+
+.form-campo > input {
+    padding: 0.3rem;
+    width: 100%;
+    border: 1px solid var(--color-2);
+    border-radius: 3px;
+}

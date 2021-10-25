@@ -58,6 +58,7 @@
     padding: 0.5rem 0;
     color: var(--color-2);
     font-weight: 800;
+    text-align: center;
 }
 
 .virtual-card .content .descripcion {
