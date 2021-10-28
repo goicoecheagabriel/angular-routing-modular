@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Modelo } from '../../interfaces/Modelo.interface';
 import { VirtualsService } from '../../services/virtuals.service';
 import Swal from 'sweetalert2'
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-listar',

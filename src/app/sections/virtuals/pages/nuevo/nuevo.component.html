@@ -1,29 +1,184 @@
 <app-titulo titulo="Nuevo Modelo"></app-titulo>
 
+<form (ngSubmit)="crearNuevo()" [formGroup]="formModelo" autocomplete="off">
+  <div class="grid">
+    <div
+      class="
+        col-10 col-offset-1
+        sm:col-8 sm:col-offset-2
+        xl:col-6 xl:col-offset-3
+      "
+    >
+      <p-card>
+        <div class="field grid">
+          <label for="nombre" class="col-fixed" style="width: 100px"
+            >Nombre</label
+          >
+          <div class="col">
+            <input
+              formControlName="nombre"
+              id="nombre"
+              type="text"
+              placeholder="Nombre del modelo"
+              pInputText
+            />
+          </div>
+        </div>
 
-<div class="container">
-    <form autocomplete="off">
+        <div class="field grid">
+          <label for="descripcion" class="col-fixed" style="width: 100px"
+            >Descripción</label
+          >
+          <div class="col">
+            <input
+              formControlName="descripcion"
+              id="descripcion"
+              type="text"
+              placeholder="Describa su modelo"
+              pInputText
+              class="inputtext component element"
+            />
+          </div>
+        </div>
 
-        <div class="form-group">
-            <div class="form-campo input">
-                <label for="titulo">Título</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Título del modelo"
-                    id="titulo">
+        <div class="grid">
+          <div class="col-4 flex-grow-0">
+            <div class="">
+              <label for="latitud" class="">Latitud</label>
+              <input
+                formControlName="latitud"
+                type="text"
+                pInputText
+                style="width: 80px"
+                id="latitud"
+                placeholder="Ingrese latitud"
+              />
             </div>
-
-            <div class="form-campo input">
-                <label for="titulo">Descripción</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Descripción del modelo"
-                    id="descripcion">
+          </div>
+          <div class="col-4 flex-grow-0">
+            <div class="">
+              <label for="longitud" class="">Longitud</label>
+              <input
+              [disabled]="true"
+                formControlName="longitud"
+                type="text"
+                pInputText
+                style="width: 80px"
+                id="longitud"
+                placeholder="Ingrese latitud"
+              />
             </div>
+          </div>
+
+          <div
+            class="col-4 flex-grow-1 grid justify-content-start align-items-end"
+          >
+            <button (click)="getCoordenadas()" pButton type="button">
+              <i class="las la-map-marker-alt"></i>
+              <span>obtener</span>
+            </button>
+          </div>
+
+          <div #getCoords>
+            <app-get-coords [lat]='43.296151' [lng]='-3.0' [visible]=false></app-get-coords>
+          </div>
 
         </div>
 
-    </form>
+        <div class="field grid">
+          <label for="uri" class="col-fixed" style="width: 100px">URL</label>
+          <div class="col">
+            <input
+              formControlName="uri"
+              id="uri"
+              type="text"
+              placeholder="Ingrese la url del modelo"
+              pInputText
+              class="inputtext"
+            />
+          </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <button pButton type="submit" label="Enviar"></button>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</form>
+
+<div>
+  <p-dialog 
+  [modal]="false"
+  [draggable]="false"
+  [resizable]="false"
+  appendTo="body"
+  header="Selecciona la ubicación del modelo" 
+  [(visible)]="display" 
+  [breakpoints]="{'960px': '75vw', '768px': '60vw', '560px': '98%'}" 
+  [style]="{width: '50vw', minHeight:'300px', height:'60vh'}" >
+  <!-- [style]="{width: '300px', height: '60vh'}"> -->
+
+  <div #getCoords>
+    <app-get-coords></app-get-coords>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton label="Establecer">
+      <i class="las la-map-marker"></i>
+    </button>
+  </ng-template>
+</p-dialog>
+</div>
+
+
+<div class="none">
+  <div class="grid p-4">
+    <div class="col-1">
+      <span>Valid</span>
+      <pre>{{ formModelo.valid | json }}</pre>
+    </div>
+
+    <div class="col-2">
+      <span>Pristine</span>
+      <pre>{{ formModelo.pristine }}</pre>
+    </div>
+
+    <div class="col-2">
+      <span>Touched</span>
+      <pre>{{ formModelo.touched }}</pre>
+    </div>
+
+    <div class="col">
+      <span>Touched</span>
+      <pre>{{ formModelo.value | json }}</pre>
+    </div>
+
+    <div class="col">
+      <div>
+        <span> Errors - Nombre </span>
+        <pre>{{ formModelo.controls.nombre.errors | json }}</pre>
+      </div>
+
+      <div>
+        <span> Errors - Descripcion </span>
+        <pre>{{ formModelo.controls.descripcion.errors | json }}</pre>
+      </div>
+
+      <div>
+        <span> Errors - Latitud </span>
+        <pre>{{ formModelo.controls.latitud.errors | json }}</pre>
+      </div>
+
+      <div>
+        <span> Errors - Longitud </span>
+        <pre>{{ formModelo.controls.longitud.errors | json }}</pre>
+      </div>
+
+      <div>
+        <span> Errors - Url </span>
+        <pre>{{ formModelo.controls.uri.errors | json }}</pre>
+      </div>
+    </div>
+  </div>
 </div>
