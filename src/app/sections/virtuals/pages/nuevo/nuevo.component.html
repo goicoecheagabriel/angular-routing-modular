@@ -1,6 +1,6 @@
 <app-titulo titulo="Nuevo Modelo"></app-titulo>
 
-<form (ngSubmit)="crearNuevo()" [formGroup]="formModelo" autocomplete="off">
+<form (ngSubmit)="crearNuevo()" [formGroup]="formModelo" autocomplete="off" class="container">
   <div class="grid">
     <div
       class="
@@ -21,9 +21,32 @@
               type="text"
               placeholder="Nombre del modelo"
               pInputText
+              aria-describedby="nombre-help" 
+              class="p-invalid"
             />
+            <br>
+            <small 
+              *ngIf="campoInvalido('nombre') "  
+              id="nombre-help" 
+              class="p-error">
+              <span *ngIf="formModelo.controls.nombre?.errors?.exists">El nombre soliciatado no esta disponible.</span>
+              <span *ngIf="formModelo.controls.nombre?.errors && !formModelo.controls.nombre?.errors?.exists">El nombre debe ser una palabra de 5 a 15 caracteres.</span>
+            </small>
+            
           </div>
         </div>
+        <!-- <div class="p-field p-fluid">
+          <label for="nombre" style="width: 100px">Nombre</label>
+          <input 
+            formControlName="nombre" 
+            placeholder="Nombre del modelo" 
+            id="nombre" 
+            type="username" 
+            aria-describedby="nombre-help" 
+            class="p-invalid" 
+            pInputText />
+          <small *ngIf="false"  id="nombre-help" class="p-error">El nombre debe contener entre 5 y 15 caracteres.</small>
+      </div> -->
 
         <div class="field grid">
           <label for="descripcion" class="col-fixed" style="width: 100px"
@@ -38,6 +61,13 @@
               pInputText
               class="inputtext component element"
             />
+            <br>
+            <small 
+              *ngIf="campoInvalido('descripcion')"  
+              id="descripcion-help" 
+              class="p-error">
+              Debe incluir una descripción de entre 7 y 50 caracteres.
+            </small>
           </div>
         </div>
 
@@ -59,7 +89,6 @@
             <div class="">
               <label for="longitud" class="">Longitud</label>
               <input
-              [disabled]="true"
                 formControlName="longitud"
                 type="text"
                 pInputText
@@ -79,23 +108,38 @@
             </button>
           </div>
 
-          <div #getCoords>
-            <app-get-coords [lat]='43.296151' [lng]='-3.0' [visible]=false></app-get-coords>
+          <br>
+            <small 
+              *ngIf="campoInvalido('latitud') || campoInvalido('longitud')"  
+              id="ubicacion-help" 
+              class="p-error">
+              Por favor seleccione una ubicación.
+            </small>
+
+          <div #viewCoords id="mapa" style="width:100%; margin-bottom: 1rem;">
+            <app-view-coords [lng]="lng" [lat]="lat" [establecer]="establecer" ></app-view-coords>
           </div>
 
         </div>
 
         <div class="field grid">
-          <label for="uri" class="col-fixed" style="width: 100px">URL</label>
+          <label for="modeloId" class="col-fixed" style="width: 100px">Modelo</label>
           <div class="col">
             <input
-              formControlName="uri"
-              id="uri"
+              formControlName="modeloId"
+              id="modeloId"
               type="text"
-              placeholder="Ingrese la url del modelo"
+              placeholder="Ingrese id del modelo"
               pInputText
               class="inputtext"
             />
+            <br>
+            <small 
+              *ngIf="campoInvalido('modeloId')"  
+              id="modeloId-help" 
+              class="p-error">
+              El formato del modelo no es correcto.
+            </small>
           </div>
         </div>
 
@@ -109,6 +153,7 @@
 
 <div>
   <p-dialog 
+  (onHide)="cerrarModal()"
   [modal]="false"
   [draggable]="false"
   [resizable]="false"
@@ -120,19 +165,19 @@
   <!-- [style]="{width: '300px', height: '60vh'}"> -->
 
   <div #getCoords>
-    <app-get-coords></app-get-coords>
+    <app-get-coords (actualPosition)="actualPosition($event)"></app-get-coords>
   </div>
 
-  <ng-template pTemplate="footer">
+  <!-- <ng-template pTemplate="footer">
     <button pButton label="Establecer">
       <i class="las la-map-marker"></i>
     </button>
-  </ng-template>
+  </ng-template> -->
 </p-dialog>
 </div>
 
 
-<div class="none">
+<div class="block">
   <div class="grid p-4">
     <div class="col-1">
       <span>Valid</span>
@@ -150,7 +195,7 @@
     </div>
 
     <div class="col">
-      <span>Touched</span>
+      <span>Valores</span>
       <pre>{{ formModelo.value | json }}</pre>
     </div>
 
@@ -177,7 +222,7 @@
 
       <div>
         <span> Errors - Url </span>
-        <pre>{{ formModelo.controls.uri.errors | json }}</pre>
+        <pre>{{ formModelo.controls.modeloId.errors | json }}</pre>
       </div>
     </div>
   </div>

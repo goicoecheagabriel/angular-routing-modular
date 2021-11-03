@@ -4,4 +4,5 @@ export interface Modelo {
     descripcion: string;
     ubicacion: [number,number];
     uri: string;
-   }
+    modeloId: string
+}

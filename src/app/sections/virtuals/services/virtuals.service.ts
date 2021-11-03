@@ -11,7 +11,6 @@ import { Modelo } from '../interfaces/Modelo.interface';
 export class VirtualsService {
   private _baseUrl: string = environment.baseUrl;
   private _token: string | null = '';
-  private _ubicacion: [ number, number ] | null = null;
 
   constructor(
     private httpService: HttpClient,
@@ -40,12 +39,26 @@ export class VirtualsService {
     return this.httpService.delete<Modelo | any>(`${ this._baseUrl }/virtuals/modelo/${ _id }`,options);
   }
 
-  setUbicacion(ubicacion:[number,number]): void{
-    this._ubicacion = ubicacion;
+  createModelo( newModelo: Object ):Observable<Modelo> {
+    this._token = localStorage.getItem('token');
+    const options = {
+      headers: {
+        Authorization: `${ environment.semillaBearer } ${this._token}`
+      }
+    }
+
+    return this.httpService.post<Modelo>( `${ this._baseUrl }/virtuals/modelos/`,newModelo, options, );
   }
 
-  get ubicacion(): [number, number] | null{
-    return this._ubicacion
-  }
+  // modeloExiste( nombre: string ):Observable<any>{
+  //   this._token = localStorage.getItem('token');
+  //   const options = {
+  //     headers: {
+  //       Authorization: `${ environment.semillaBearer } ${ this._token }`
+  //     }
+  //   }
+
+  //   return this.httpService.get<any>( `${ this._baseUrl }/virtuals/modelos/${ nombre }`, options );
+  // }
 
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // primeNg
-import {PrimeNgModule} from './prime-ng.module'
+import {PrimeNgModule} from './prime/prime-ng.module'
 
 // SweetAlert2
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -16,6 +16,8 @@ import { LoadingComponent } from '../../protected/dashed/loading/loading.compone
 import { TituloComponent } from './dashed/titulo/titulo.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GetCoordsComponent } from './pages/get-coords/get-coords.component';
+import { ViewCoordsComponent } from './pages/view-coords/view-coords.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -26,14 +28,16 @@ import { GetCoordsComponent } from './pages/get-coords/get-coords.component';
     NuevoComponent,
     LoadingComponent,
     TituloComponent,
-    GetCoordsComponent
+    GetCoordsComponent,
+    ViewCoordsComponent
   ],
   imports: [
     CommonModule,
     VirtualsRoutingModule,
     PrimeNgModule,
     ReactiveFormsModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    HttpClientModule
   ]
 })
 export class VirtualsModule { }

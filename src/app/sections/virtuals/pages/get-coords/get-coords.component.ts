@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl'
 import { VirtualsService } from '../../services/virtuals.service';
 
@@ -12,9 +12,10 @@ export class GetCoordsComponent implements AfterViewInit, AfterViewChecked {
 
   mapa!: mapboxgl.Map;
   @ViewChild('mapa') divMapa!: ElementRef;
-  @Input('lat') lat!: number // 43.296151;
+  @Input('lat') lat!: number // 43.296151; 
   @Input('lng') lng!: number //= -2.978565;
   @Input('visible') visible!: boolean;
+  @Output() actualPosition = new EventEmitter<[number,number]>();
   ubicacion:[number,number] = [0,0]
   
   
@@ -34,7 +35,6 @@ export class GetCoordsComponent implements AfterViewInit, AfterViewChecked {
     }
 
     this.createMapa(); 
-    console.log(this.lat, this.lng)
   }
 
   ngAfterViewChecked(){
@@ -42,10 +42,6 @@ export class GetCoordsComponent implements AfterViewInit, AfterViewChecked {
 
   }
 
-  ngDoCheck() {
-    this.ubicacion = this.virtualService.ubicacion || this.ubicacion
-    console.log("Servicio de Ubicacion",this.virtualService.ubicacion)
-  }
 
   createMapa(){
     this.mapa = new mapboxgl.Map({
@@ -58,13 +54,9 @@ export class GetCoordsComponent implements AfterViewInit, AfterViewChecked {
 
     this.mapa.on('moveend',()=>{
       const {lng, lat} = this.mapa.getCenter()
-      console.log([lng, lat])
-      this.virtualService.setUbicacion([lng, lat])
+      this.actualPosition.emit([lng,lat]);
     })
 
   }
-
-
-
 
 }
