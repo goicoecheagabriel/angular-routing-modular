@@ -23,35 +23,41 @@ export class ViewCoordsComponent implements AfterViewChecked, AfterViewInit, OnC
   constructor() { }
 
   ngOnInit(){
-    this.establecer = false;
-    this.mostrar = false;
+    this.establecer = this.establecer || false;
+    this.mostrar = this.establecer || false;
   }
   
   ngOnChanges(){
-    // this.mapa.resize()
-    console.log("CAMBIOS EN MOSTRAR",this.mostrar)
+    if(this.divMapa){
+      this.agregarMarker();
 
+    }
+
+  }
+  ngAfterContentChecked(){
+   
   }
 
   ngAfterViewChecked(){
-    // this.mapa.resize()
-    // Si establecer es true, significa que el modal se cerró
-    if(this.establecer){
-      console.log("DISPARAR CREACION MARKER");
-      this.agregarMarker()
-      this.establecer = false;
-    }
-    
     this.ubicacion = 
       (this.lng == undefined || this.lat==undefined) 
         ? [ 0, 0 ] 
         : [ this.lng, this.lat ];
     this.mapa.setCenter(this.ubicacion);
+
+    // Si establecer es true, significa que el modal se cerró
+    if(this.establecer){
+      console.log("PASAMOS POR ACA", this.establecer)
+      this.agregarMarker();
+      this.establecer = false;
+    }
+    
     
   }
 
   ngAfterViewInit(): void {
     this.crearMapa();
+    
     
   }
   
@@ -97,7 +103,7 @@ export class ViewCoordsComponent implements AfterViewChecked, AfterViewInit, OnC
     this.mostrar = true;
     
     setTimeout(() => {
-      this.mapa.resize()
+      this.mapa.resize();
     }, 300);
   }
 

@@ -5,7 +5,8 @@
 
 <div
     *ngIf="modelos.length > 0"
-    class="container">
+    class="container"
+    #container>
     <div 
         *ngFor="let modelo of modelos"
         class="virtual-card">
@@ -56,3 +57,4 @@
 </div>
 
 <app-loading *ngIf="loading && !error"></app-loading>
+

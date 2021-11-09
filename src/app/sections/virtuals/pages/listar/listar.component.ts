@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Modelo } from '../../interfaces/Modelo.interface';
 import { VirtualsService } from '../../services/virtuals.service';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar',
@@ -12,9 +13,13 @@ export class ListarComponent implements OnInit {
   modelos: Modelo[] = [];
   loading: boolean = true;
   error: string | null = null;
+  // dialogVisible:boolean = false;
+  modelAEditar:Modelo | null = null;
+  // modelo: Modelo | null = null;
 
   constructor(
-    private virtualService: VirtualsService
+    private virtualService: VirtualsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +37,7 @@ export class ListarComponent implements OnInit {
           this.error = message;
         }
       )
+
   }
 
   eliminar(modelo: Modelo){
@@ -74,14 +80,17 @@ export class ListarComponent implements OnInit {
           console.log("Accion cancelada", result);
           return;
         }
-        console.log("Eliminar", modelo._id)
-        console.log(this.modelos)
+        
         this.virtualService.deleteModelo( modelo._id )
           .subscribe( 
             m => {
               this.modelos = this.modelos.filter( modelo => modelo._id !== m?.data._id);
             },
-            e=> console.error('ERRORES AL ELIMINAR',e)
+            e=> {
+              console.error('ERRORES AL ELIMINAR',e)
+              
+            }
+            
           )
           
       } )
@@ -89,11 +98,22 @@ export class ListarComponent implements OnInit {
   }
 
   editar(modelo: Modelo){
-    console.log("editar",modelo._id)
+    
+    const id: string | null= modelo ? modelo._id : null;
+    this.modelAEditar = modelo;
+    console.log("editar",id)
+    this.router.navigate( [ `/dashboard/virtuals/edit/${ id }` ] )
+    // this.dialogVisible = true;
   }
 
   mapa(modelo: Modelo){
     console.log("ver mapa",modelo._id)
   }
+
+  cerrarModal(){
+
+  }
+
+ 
 
 }

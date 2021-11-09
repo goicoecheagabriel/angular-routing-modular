@@ -3,6 +3,13 @@
     padding: 0.2rem 1rem;
 }
 
+.ubicacion {
+    border: 1px dashed var(--color-2);
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius:3px;
+}
+
 .form-group{
     background-color: white;
     
@@ -32,3 +39,15 @@
     width: 200px;
     height: 300px;
 }
+
+.btn-crear, .btn-guardar{
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* .p-card.p-component{
+    border-radius:20px
+} */

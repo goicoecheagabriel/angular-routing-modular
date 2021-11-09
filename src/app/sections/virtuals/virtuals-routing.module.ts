@@ -16,6 +16,9 @@ const routes: Routes = [
       {
         path: 'new',
         component: NuevoComponent,
+      },{
+        path: 'edit/:id',
+        component: NuevoComponent,
       },
       {
         path: '**',

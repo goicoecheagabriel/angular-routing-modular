@@ -1,6 +1,7 @@
-<app-titulo titulo="Nuevo Modelo"></app-titulo>
-
-<form (ngSubmit)="crearNuevo()" [formGroup]="formModelo" autocomplete="off" class="container">
+<!-- <app-titulo *ngIf="!edicion[0]" titulo="Nuevo Modelo"></app-titulo>
+<app-titulo *ngIf="edicion[0]"  titulo="Modificar modelo: {{ edicion[2] ? edicion[2].nombre : '' }}"></app-titulo>
+ -->
+<!-- <form (ngSubmit)="crearNuevo()" [formGroup]="formModelo" autocomplete="off" class="container">
   <div class="grid">
     <div
       class="
@@ -35,18 +36,6 @@
             
           </div>
         </div>
-        <!-- <div class="p-field p-fluid">
-          <label for="nombre" style="width: 100px">Nombre</label>
-          <input 
-            formControlName="nombre" 
-            placeholder="Nombre del modelo" 
-            id="nombre" 
-            type="username" 
-            aria-describedby="nombre-help" 
-            class="p-invalid" 
-            pInputText />
-          <small *ngIf="false"  id="nombre-help" class="p-error">El nombre debe contener entre 5 y 15 caracteres.</small>
-      </div> -->
 
         <div class="field grid">
           <label for="descripcion" class="col-fixed" style="width: 100px"
@@ -144,7 +133,243 @@
         </div>
 
         <ng-template pTemplate="footer">
-          <button pButton type="submit" label="Enviar"></button>
+          <button *ngIf="!edicion[0]" pButton type="submit" label="Crear"></button>
+          <div  *ngIf="edicion[0]">
+            <button pButton type="submit" label="Guardar"></button>
+            <button pButton (click)="cancelarModificacion()" type="button" label="Cancelar"></button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</form> -->
+
+<form
+  (ngSubmit)="crearNuevo()"
+  [formGroup]="formModelo"
+  autocomplete="off"
+  class="container"
+>
+  <div class="grid" style="padding: 2rem 0">
+    <!-- col-10 col-offset-1 -->
+    <div 
+      class="col-12 sm:col-10 sm:col-offset-1 md:col-10 md:col-offset-1 lg:col-8 lg:col-offset-2 xl:col-6 xl:col-offset-3" 
+      id="tarjeta">
+      <p-card
+      [header]="
+      !edicion[0]
+      ? 'NUEVO MODELO'
+      : 'MODIFICAR MODELO: ' + edicion[2]?.nombre
+      "
+      [style]="{'border-radius':'8px'}"
+      >
+        <div class="px-2 sm:px-4">
+          <div class="field grid flex-column">
+            <div class="col">
+              <label for="nombre" class="">Nombre</label>
+            </div>
+            <div class="col">
+              <input
+                style="width: 100%"
+                formControlName="nombre"
+                id="nombre"
+                type="text"
+                placeholder="Nombre del modelo"
+                pInputText
+                aria-describedby="nombre-help"
+                class="p-invalid"
+              />
+              <br />
+              <small
+                *ngIf="campoInvalido('nombre')"
+                id="nombre-help"
+                class="p-error"
+              >
+                <span *ngIf="formModelo.controls.nombre?.errors?.exists"
+                  >El nombre soliciatado no esta disponible.</span
+                >
+                <span
+                  *ngIf="
+                    formModelo.controls.nombre?.errors &&
+                    !formModelo.controls.nombre?.errors?.exists
+                  "
+                  >El nombre debe ser una palabra de 5 a 15 caracteres.</span
+                >
+              </small>
+            </div>
+          </div>
+
+          <div class="field grid flex-column">
+            <div class="col">
+              <label for="descripcion">Descripción</label>
+            </div>
+            <div class="col">
+              <!-- <input
+                style="width: 100%"
+                
+                type="text"
+                pInputText
+                class="inputtext component element"
+                /> -->
+                <textarea 
+                id="descripcion"
+                placeholder="Describa su modelo"
+                rows="2" 
+                formControlName="descripcion"
+                [style]="{'width':'100%'}"
+                maxlength="50"
+                cols="30" 
+                pInputTextarea 
+                [autoResize]="true">
+              </textarea>
+              <br />
+              <small
+                *ngIf="campoInvalido('descripcion')"
+                id="descripcion-help"
+                class="p-error"
+              >
+                Debe incluir una descripción de entre 7 y 50 caracteres.
+              </small>
+            </div>
+          </div>
+
+          <div class="field grid flex-column">
+            <div class="col">
+              <label for="modeloId">Modelo</label>
+            </div>
+            <div class="col">
+              <input
+                style="width: 100%"
+                formControlName="modeloId"
+                id="modeloId"
+                type="text"
+                placeholder="Ingrese id del modelo"
+                pInputText
+                class="inputtext"
+              />
+              <br />
+              <small
+                *ngIf="campoInvalido('modeloId')"
+                id="modeloId-help"
+                class="p-error"
+              >
+                El formato del modelo no es correcto.
+              </small>
+            </div>
+          </div>
+
+          <fieldset class="ubicacion" disabled>
+            <legend>Ubicación:</legend>
+            <div class="field grid flex-column">
+              <div class="col">
+                <label for="latitud" class="">Latitud</label>
+              </div>
+              <div class="col">
+                <input
+                  style="width: 100%"
+                  formControlName="latitud"
+                  type="text"
+                  pInputText
+                  id="latitud"
+                  placeholder="Ingrese latitud"
+                />
+              </div>
+            </div>
+
+            <div class="field grid flex-column">
+              <div class="col">
+                <label for="longitud">Longitud</label>
+              </div>
+              <div class="col">
+                <input
+                  [disabled]="true"
+                  style="width: 100%"
+                  formControlName="longitud"
+                  type="text"
+                  pInputText
+                  id="longitud"
+                  placeholder="Ingrese longitud"
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="grid flex-column">
+            <div class="col">
+              <button
+                (click)="getCoordenadas()"
+                class="p-button-secondary"
+                pButton
+                type="button"
+                style="width: 100%"
+              >
+                <div>
+                  <i class="las la-map-marker-alt"></i>
+                  <span>Obtener coordenadas</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <small
+            *ngIf="campoInvalido('latitud') || campoInvalido('longitud')"
+            id="ubicacion-help"
+            class="p-error"
+          >
+            Por favor seleccione una ubicación.
+          </small>
+
+          <div
+            #viewCoords
+            id="mapa"
+            style="width: 100%; margin-bottom: 1rem; height: min-content"
+          >
+            <app-view-coords
+              [lng]="lng"
+              [lat]="lat"
+              [establecer]="establecer"
+            ></app-view-coords>
+          </div>
+        </div>
+
+        <ng-template class="grid flex-column" pTemplate="footer">
+          <div class="col">
+            <div *ngIf="!edicion[0]">
+              <button
+                pButton
+                class="btn-crear"
+                type="submit"
+                label="Crear"
+                style="width: 100%; margin-bottom: 10px"
+              ></button>
+              <button
+                pButton
+                (click)="cancelarModificacion()"
+                type="button"
+                class="p-button-warning"
+                label="Cancelar"
+                style="width: 100%"
+              ></button>
+            </div>
+          </div>
+          <div *ngIf="edicion[0]">
+            <button
+              pButton
+              class="btn-guardar"
+              type="submit"
+              label="Guardar"
+              [disabled]="formModelo.pristine"
+              style="width: 100%; margin-bottom: 10px"
+            ></button>
+            <button
+              pButton
+              (click)="cancelarModificacion()"
+              type="button"
+              class="p-button-warning"
+              label="Cancelar"
+              style="width: 100%"
+            ></button>
+          </div>
         </ng-template>
       </p-card>
     </div>
@@ -152,32 +377,34 @@
 </form>
 
 <div>
-  <p-dialog 
-  (onHide)="cerrarModal()"
-  [modal]="false"
-  [draggable]="false"
-  [resizable]="false"
-  appendTo="body"
-  header="Selecciona la ubicación del modelo" 
-  [(visible)]="display" 
-  [breakpoints]="{'960px': '75vw', '768px': '60vw', '560px': '98%'}" 
-  [style]="{width: '50vw', minHeight:'300px', height:'60vh'}" >
-  <!-- [style]="{width: '300px', height: '60vh'}"> -->
+  <p-dialog
+    (onHide)="mostrarViewMap()"
+    [modal]="false"
+    [draggable]="false"
+    [resizable]="false"
+    appendTo="body"
+    header="Selecciona la ubicación del modelo"
+    [(visible)]="display"
+    [breakpoints]="{ '960px': '75vw', '768px': '60vw', '560px': '98%' }"
+    [style]="{ width: '50vw', minHeight: '300px', height: '60vh' }"
+  >
+    <!-- [style]="{width: '300px', height: '60vh'}"> -->
 
-  <div #getCoords>
-    <app-get-coords (actualPosition)="actualPosition($event)"></app-get-coords>
-  </div>
+    <div #getCoords>
+      <app-get-coords
+        (actualPosition)="actualPosition($event)"
+      ></app-get-coords>
+    </div>
 
-  <!-- <ng-template pTemplate="footer">
+    <!-- <ng-template pTemplate="footer">
     <button pButton label="Establecer">
       <i class="las la-map-marker"></i>
     </button>
   </ng-template> -->
-</p-dialog>
+  </p-dialog>
 </div>
 
-
-<div class="block">
+<div class="none">
   <div class="grid p-4">
     <div class="col-1">
       <span>Valid</span>

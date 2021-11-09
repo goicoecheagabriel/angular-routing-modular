@@ -29,6 +29,17 @@ export class VirtualsService {
       return this.httpService.get<Modelo[]>(`${ this._baseUrl }/virtuals/modelos`,options);
     }
 
+    getModelo( modeloId: string ):Observable<Modelo> {
+      this._token = localStorage.getItem('token');
+      const options = {
+        headers: {
+          Authorization: `Bearer ${this._token}`
+        }
+      }
+
+      return this.httpService.get<Modelo>( `${ this._baseUrl }/virtuals/modelos/${ modeloId }`,options );
+    }
+
   deleteModelo(_id:string):Observable<Modelo | any> {
     const options = {
       headers: {
@@ -48,6 +59,17 @@ export class VirtualsService {
     }
 
     return this.httpService.post<Modelo>( `${ this._baseUrl }/virtuals/modelos/`,newModelo, options, );
+  }
+
+  updateModelo( id: string, modelo:Modelo ):Observable<Modelo> {
+    this._token = localStorage.getItem('token');
+    const options = {
+      headers: {
+        Authorization: `${ environment.semillaBearer } ${ this._token }`
+      }
+    }
+
+    return this.httpService.put<Modelo>( `${ this._baseUrl }/virtuals/modelos/${ id }`,modelo, options );
   }
 
   // modeloExiste( nombre: string ):Observable<any>{

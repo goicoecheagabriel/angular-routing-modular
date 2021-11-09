@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 
@@ -17,7 +18,8 @@ import {MessageModule} from 'primeng/message';
     ButtonModule,
     DialogModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    InputTextareaModule
   ]
 })
 export class PrimeNgModule { }
